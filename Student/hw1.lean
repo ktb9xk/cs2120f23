@@ -149,10 +149,8 @@ right, the following test cases should pass.
 -/
 
 -- Now complete the implementation of glue_funs'
-def glue_funs' : (Nat → Bool) → (String → Nat) → String → Bool
-| g, n, b => (g n b)
-| f, s, n => (f s n)
-|
+def glue_funs' (g: ℕ  → Bool) (f: String → ℕ) (s: String) : Bool :=
+g (f s)
 
 #eval glue_funs' isEven String.length "Hello"  -- false
 #eval glue_funs' isEven String.length "Hello!" -- true
@@ -197,8 +195,8 @@ of the type arguments are implicit and inferred.
 -/
 
 -- Implement glue_funs here
-def glue_funs : _
-| _ => _
+def glue_funs {α β γ: Type} (g: β  → γ) (f: α → β) (a: α) : γ :=
+g (f a)
 
 -- test cases
 #eval glue_funs isEven String.length "Hello"  -- false
@@ -218,8 +216,19 @@ as applying square after double?
 -/
 
 -- Copy the double and square functions here
+def double : Nat → Nat
+| n => 2 * n
+
+def square : Nat → Nat
+| n => n^2
 
 -- Write your tests here; include expected results
 
-#eval _
-#eval _
+/-
+It changes because it is ordered, the 50 result is from 
+5^2=25*2=50, whereas 100 is from 5*2=10^2=100, giving 
+different answers
+-/
+
+#eval glue_funs double square 5 --50
+#eval glue_funs square double 5 --100
