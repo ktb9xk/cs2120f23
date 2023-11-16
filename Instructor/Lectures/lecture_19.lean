@@ -19,7 +19,9 @@ proof of *P x*. Indeed, that's how we prove such a proposition: show
 that if given any *x* you can produce and return a proof of *P x*.
 -/
 
+example : ∃ (n : Nat), True := (3, True.intro)
 
+example : ∃ (n : Nat), n % 2 = 0 :=
 
 
 
